@@ -9,7 +9,13 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// $data = json_decode(file_get_contents("php://input"));
+#$_GET['xyz'] to read values
+#isset will check xyz key persent or not
+
+
+#$_POST['xyz'] to read values
+#isset will check xyz key persent or not
+
 
 try{
     $db = new mysql();
@@ -19,7 +25,7 @@ try{
 }
 
 
-$sql = "select * from institute;";
+$sql = "select * from institutes;";
 $response = $db->execute($sql);
 
 if(!$response){	

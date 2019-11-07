@@ -1,36 +1,35 @@
 <?php
 
-require('mysql.php');
+require('../common/mysql.php');
 
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
+
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$data = json_decode(file_get_contents("php://input"));
+if(!isset($_POST['test_id'])){
+	echo json_encode(array("error" => "Invalid request. required test id."));
+}
 
-//$data['user_id']
-//$data['test_id']
+$testId = $_POST['test_id'];
 
 try{
     $db = new mysql();
 }catch (Exception $ex){
-    return json_encode(['data' => false, 'error_message' => "connection failed"]);
+    echo json_encode(['data' => false, 'error_message' => "connection failed"]);
 }
 
-
-$sql = "select * from test where id =" . $data['test_id'];
+$today = date("Y-m-d");
+$sql = "select * from tests where id =" . $testId . " and test_date = '" . $today . "'";
 $test = $db->execute($sql, true);
 
 if(!$test){
-    return json_encode(['data' =>[]]);
+    echo json_encode(['data' =>[]]);
 }
 
-$today = date("Y-m-d")
-if($test->test_date != $today){
-    return json_encode(['data' =>false, 'error_message' => "Not allowed to take test right now."]);
-}
+// echo json_encode($test);
 
 $subjectSql = "select * from subject where id=" . $test->subject_id;
 

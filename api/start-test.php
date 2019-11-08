@@ -15,44 +15,54 @@ if(!isset($_POST['test_id'])){
 
 $testId = $_POST['test_id'];
 
+
 try{
     $db = new mysql();
 }catch (Exception $ex){
     echo json_encode(['data' => false, 'error_message' => "connection failed"]);
 }
 
+
 $today = date("Y-m-d");
 $sql = "select * from tests where id =" . $testId . " and test_date = '" . $today . "'";
 $test = $db->execute($sql, true);
 
+
 if(!$test){
     echo json_encode(['data' =>[]]);
+    return;
 }
 
 // echo json_encode($test);
 
-$subjectSql = "select * from subject where id=" . $test->subject_id;
 
-$test->subject = $db->execute($subjectSql, true);
-if(empty($test->subject)){
-    return json_encode(['data' =>false, 'error_message' => "No subjects found."]);
+$subjectSql = "select * from subjects where id = ". $test['subject_id'];
+
+$subject = $db->execute($subjectSql, true);
+
+if(empty($subject)){
+    echo json_encode(['data' =>false, 'error_message' => "No subjects found."]);
+    return;
 }
 
-$questionsSql = "select * from question where subject_id = " . $test->subject->id;
-$questions = $db->execute($quetionsSql);
+$questionsSql = "select id, question from questions where subject_id = " . $subject['id'];
+
+$questions = $db->execute($questionsSql);
 
 if(empty($questions)){
-    return json_encode(['data' =>false, 'error_message' => "No question are provided."]);
+    echo json_encode(['data' =>false, 'error_message' => "No question are provided."]);
+    return;
 }
 
 foreach ($questions as $key => $que){
-    $optionSql = "select * from question_options where que_id=" . $que->id;
-    $questions[$key]->option = $db->execute($optionSql);
+    $optionSql = "select id, value from question_options where question_id=" . $que['id'];
+    $questions[$key]['option'] = $db->execute($optionSql);
 }
 
-$test->subject->questions = $questions;
+$subject['questions'] = $questions;
 
-return json_encode(['data' => $test]);
+$test['subject'] = $subject;
 
+echo json_encode(['data' => $test]);
 
 ?>

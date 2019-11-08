@@ -2,7 +2,7 @@ create database online_examination;
 
 use online_examination;
 
-create table IF NOT EXISTS  user(
+create table IF NOT EXISTS  users(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name varchar(255),
 	email varchar(255),
@@ -11,13 +11,13 @@ create table IF NOT EXISTS  user(
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-create table IF NOT EXISTS institute(
+create table IF NOT EXISTS institutes(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name varchar(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-create table IF NOT EXISTS subject
+create table IF NOT EXISTS subjects
 (
 	id int PRIMARY KEY AUTO_INCREMENT,
 	name varchar(255),
@@ -33,17 +33,17 @@ create table IF NOT EXISTS subject
 create table IF NOT EXISTS questions
 (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	question varchar(255),
+	question TEXT(255),
 	subject_id INT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 	
-create table  IF NOT EXISTS question_option
+create table  IF NOT EXISTS question_options
 (
     id INT PRIMARY KEY AUTO_INCREMENT,
 	question_id INT,
-    value varchar(255),
+    value TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -59,15 +59,15 @@ create table  IF NOT EXISTS answers
 );
 
 
-create table IF NOT EXISTS test
+create table IF NOT EXISTS tests
 (
      id INT PRIMARY KEY AUTO_INCREMENT,      
      subject_id INT,
      test_date DATETIME,
-     is_submitted_test BOOLEAN,
+     is_submitted BOOLEAN,
      start_time TIME,
      finish_time TIME,
-     user_id INT,
+     user_id INT not null,
      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     
@@ -86,12 +86,12 @@ create table IF NOT EXISTS user_answers
 
 
 
+//insertind data into 
 
 
 
 
-
-
+insert into test values("","1",)
 
 
 

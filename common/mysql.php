@@ -26,12 +26,17 @@ class mysql
             while ($item = $list->fetch_assoc()) {
                 array_push($response, $item);
             }
+
             mysqli_free_result($list);
+            
             if ($first) {
                 return $response[0];
             }
             return $response;
-        } else {
+
+        } 
+        else 
+        {
             return false;
         }
     }

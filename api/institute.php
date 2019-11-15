@@ -19,13 +19,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 try{
     $db = new mysql();
-
-}catch (Exception $ex){
+}
+catch (Exception $ex){
     return json_encode(['data' => false, 'error_message' => "connection failed"]);
 }
 
 
-$sql = "select * from institutes;";
+$sql = "select * from institutes";
 $response = $db->execute($sql);
 
 if(!$response){	

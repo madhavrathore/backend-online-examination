@@ -86,13 +86,6 @@ create table IF NOT EXISTS user_answers
 
 
 
-//insertind data into 
-
-
-
-
-insert into test values("","1",)
-
 
 
 

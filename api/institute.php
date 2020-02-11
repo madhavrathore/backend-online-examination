@@ -25,7 +25,7 @@ catch (Exception $ex){
 }
 
 
-$sql = "select * from institutes";
+$sql = "select name from institutes";
 $response = $db->execute($sql);
 
 if(!$response){	

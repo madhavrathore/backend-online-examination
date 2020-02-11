@@ -26,15 +26,14 @@ catch (Exception $ex)
 	}
 	
 
-   $result1 ="SELECT password FROM users WHERE email = '".$email."'";
+   $result1 ="SELECT password FROM admin WHERE email = '".$email."'";
    
-   // $result1=$db->execute($sql1);
 
    var_dump($result1);
 
-   $result2 ="SELECT email FROM users WHERE password = '".$password."'";
-   // var_dump($result2);
-   	if($email == $result2 && $password == $result1)
+   $result2 ="SELECT email FROM admin WHERE password = '".$password."'";
+
+   	if($result2 == $email && $result1 == $password)
 	{
 		echo json_encode(array("message" => "Success"));
 	}

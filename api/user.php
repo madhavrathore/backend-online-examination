@@ -16,7 +16,8 @@ $phoneNumber=$_POST['phone-number'];
 $dob=$_POST['date'];
 $gender=$_POST['gender'];
 
-    if(!isset($_POST['name'])||!isset($_POST['email'])||!isset($_POST['password'])||!isset($_POST['phone-number'])||!isset($_POST['date'])||!isset($_POST['gender']))
+
+    if(!isset($username) || !isset($emailId) || !isset($password) || !isset($phoneNumber)||!isset($dob)||!isset($gender))
     {
         echo json_encode(array("error" => "Invalid request.Values Not Provided"));
         return;
@@ -25,21 +26,21 @@ $gender=$_POST['gender'];
  try{
         $db= new mysql();
     }
-catch (Exception $ex)
-{
-    return json_encode(['data' => false, 'error_message' => "connection failed"]);
-}
-    
- $sql="INSERT INTO users(name,email,password,phone_number,date_of_birth,gender) 
-    values('".$username."','".$emailId."','".$password."','".$phoneNumber."','".$dob."','".$gender."')";
- var_dump($sql);die();
-if($db->connection->query($sql) === TRUE)
+    catch (Exception $ex)
     {
-        echo "User added successfully";
-        header('Location:file:///home/madhav/project/online-examination/login.html');
+        return json_encode(['data' => false, 'error_message' => "connection failed"]);
+    }
+    
+    $sql="INSERT INTO users(name,email,password,phone_number,date_of_birth,gender) 
+    values('".$username."','".$emailId."','".$password."','".$phoneNumber."','".$dob."','".$gender."')";
+    
+    if($db->connection->query($sql) === TRUE)
+    {
+        
+        return json_encode(['data' => false, 'error_message' => "INFO : Success to updated record"]);
     }
     else{
         http_response_code(500);
-        echo "Failed to add the User";
+        return json_encode(['data' => false, 'error_message' => "Error : Failed to update record"]);
     }
  ?>  
